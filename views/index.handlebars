@@ -1,36 +1,36 @@
 <div class="container">
     <div class="row">
-        <div class="col-3">
-            <h3>CAN HAZ?</h3>
+        <div class="col-2">
+            <h5>CAN HAZ?</h5>
             {{#each canHas}}
             <p>{{burger_name}}</p>
             <button value={{id}}>NOM</button>
             {{/each}}
         </div>
 
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <img src="/assets/eat-da-burger-logo.png" alt="game logo" height="225" width="225">
-            <h3>what kind?</h3>
-            <form action="/" method="POST">
-                <textarea type="text" name="burger"></textarea>
-                <div><button type="submit">PLACE ORDER!</button></div>
-            </form>
-        </div>
-    </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <img src="/assets/eat-da-burger-logo.png" alt="game logo" height="175" width="175">
+                <h6>...what kind?</h6>
+                <form action="/" method="POST">
+                    <textarea type="text" name="burger"></textarea>
+                    <div><button type="submit">PLACE ORDER!</button></div>
+                </form>
+            </div>
 
-    <div class="container">
-          <div class="row">
-    <div class="col-3">
-        <h3>WAS YUMZ!</h3>
-        {{#each wasYumz}}
-        <p>{{burger_name}}</p>
-        {{/each}}
-        </div>
+
+            <div class="col-2">
+                <h5>WAS YUMZ!</h5>
+                {{#each wasYumz}}
+                <p>{{burger_name}}</p>
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>
+
+
+
 
 <script>
     $("button").on("click", function (event) {

@@ -32,7 +32,7 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
-// Routes
+// Route GET
 app.get("/", function(req, res) {
   //start with a query on the whole table
   connection.query("SELECT * FROM burger", function(err, result) {
@@ -51,7 +51,7 @@ app.get("/", function(req, res) {
         canHas.push(result[i])
       }
     }
- //then render these arrays to index
+ //then render these arrays to index (object with key values)
     res.render("index", { 
       canHas: canHas,
       wasYumz: wasYumz
@@ -60,6 +60,40 @@ app.get("/", function(req, res) {
 });
 
 
+//Route POST
+app.post("/", function (req, res) {
+  connection.query(
+      "INSERT INTO burger SET ?",
+      {
+          burger_name: req.body.burger,
+          devoured: false
+      },
+      function (err, res) {
+          if (err) throw err;
+      }
+  );
+  res.redirect("/");
+});
+
+app.get("/api/:id", function (req, res) {
+  connection.query(
+      "UPDATE burger SET ? WHERE ?",
+      [
+          {
+              devoured: true
+          },
+          {
+              id: req.params.id
+          }
+      ],
+      function (err, res) {
+          if (err) throw err;
+      }
+  );
+});
+
+
+ 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {
   // Log (server-side) when our server has started
