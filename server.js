@@ -31,36 +31,35 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
-// Root get route
-app.get("/", function(req, res) {
-  connection.query("SELECT * FROM tasks;", function(err, data) {
+// Routes
+app.get("/burger", function(req, res) {
+  connection.query("SELECT * FROM burger", function(err, result) {
     if (err) throw err;
+    
+    var html = "<h1>Burger Output</h1>";
 
-    // Test it
-    // console.log('The solution is: ', data);
+    html += "<ul>";
 
-    // Test it
-    // return res.send(data);
+    for (var i = 0; i < result.length; i++) {
+      html += "<li><p> ID: " + result[i].id + "</p>";
+      html += "<p> burger name: " + result[i].burger_name + "</p>";
+      html += "<p> devoured: " + result[i].devoured + "</p>";
+    }
 
-    res.render("index", { tasks: data });
+    html += "</ul>";
+    res.send(html);
   });
 });
 
-// Post route -> back to home
-app.post("/", function(req, res) {
-  // Test it
-  // console.log('You sent, ' + req.body.task);
 
-  // Test it
-  // return res.send('You sent, ' + req.body.task);
+app.get("/weekend", function(req, res) {
+  res.render("index", lunches[1]);
+});
 
-  // When using the MySQL package, we'd use ?s in place of any values to be inserted, which are then swapped out with corresponding elements in the array
-  // This helps us avoid an exploit known as SQL injection which we'd be open to if we used string concatenation
-  // https://en.wikipedia.org/wiki/SQL_injection
-  connection.query("INSERT INTO tasks (task) VALUES (?)", [req.body.task], function(err, result) {
-    if (err) throw err;
-
-    res.redirect("/");
+app.get("/lunches", function(req, res) {
+  res.render("all-lunches", {
+    foods: lunches,
+    eater: "david"
   });
 });
 
