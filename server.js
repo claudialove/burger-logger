@@ -32,7 +32,7 @@ connection.connect(function(err) {
 });
 
 // Routes
-app.get("/burger", function(req, res) {
+app.get("/eat-da-burger", function(req, res) {
   connection.query("SELECT * FROM burger", function(err, result) {
     if (err) throw err;
     
@@ -52,16 +52,6 @@ app.get("/burger", function(req, res) {
 });
 
 
-app.get("/weekend", function(req, res) {
-  res.render("index", lunches[1]);
-});
-
-app.get("/lunches", function(req, res) {
-  res.render("all-lunches", {
-    foods: lunches,
-    eater: "david"
-  });
-});
 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {
