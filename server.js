@@ -11,6 +11,7 @@ var PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -32,25 +33,31 @@ connection.connect(function(err) {
 });
 
 // Routes
-app.get("/eat-da-burger", function(req, res) {
+app.get("/", function(req, res) {
+  //start with a query on the whole table
   connection.query("SELECT * FROM burger", function(err, result) {
+    //standard error handling
     if (err) throw err;
-    
-    var html = "<h1>Burger Output</h1>";
-
-    html += "<ul>";
-
+    //declare variables which can handle the 2 states based on devoured
+    const canHas = [];
+    const wasYumz = [];
+// iterate through the results with a for loop
     for (var i = 0; i < result.length; i++) {
-      html += "<li><p> ID: " + result[i].id + "</p>";
-      html += "<p> burger name: " + result[i].burger_name + "</p>";
-      html += "<p> devoured: " + result[i].devoured + "</p>";
+      //pushing to one varible if  devoured
+      if (result[i].devoured) {
+        wasYumz.push(result[i]) 
+    //pushing to the other variable if not devoured
+      } else {
+        canHas.push(result[i])
+      }
     }
-
-    html += "</ul>";
-    res.send(html);
+ //then render these arrays to index
+    res.render("index", { 
+      canHas: canHas,
+      wasYumz: wasYumz
+    })
   });
 });
-
 
 
 // Start our server so that it can begin listening to client requests.

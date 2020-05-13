@@ -1,34 +1,33 @@
-
-
-
-<div class="jumbotron">
-    <h1 class="display-12">EAT-DA-BURGERr</h1>
-</div>
-
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-3">
             <h3>CAN HAZ?</h3>
-            {{#each nondevouredBurgers}}
+            {{#each canHas}}
             <p>{{burger_name}}</p>
             <button value={{id}}>NOM</button>
             {{/each}}
         </div>
-        <div class="col-4">
-            <h3>WAS YUMZ!</h3>
-            {{#each devouredBurgers}}
-            <p>{{burger_name}}</p>
-            {{/each}}
-        </div>
+
     </div>
-    <img src="eat-da-burger-logo.png" alt="game logo" height="100" width= "100">
     <div class="row justify-content-center">
         <div class="col-6">
+            <img src="/assets/eat-da-burger-logo.png" alt="game logo" height="225" width="225">
             <h3>what kind?</h3>
             <form action="/" method="POST">
                 <textarea type="text" name="burger"></textarea>
-                <button type="submit">place order</button>
+                <div><button type="submit">PLACE ORDER!</button></div>
             </form>
+        </div>
+    </div>
+
+    <div class="container">
+          <div class="row">
+    <div class="col-3">
+        <h3>WAS YUMZ!</h3>
+        {{#each wasYumz}}
+        <p>{{burger_name}}</p>
+        {{/each}}
+        </div>
         </div>
     </div>
 </div>
